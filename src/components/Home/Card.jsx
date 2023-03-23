@@ -1,11 +1,16 @@
 import { Box, Image, Text} from '@chakra-ui/react'
 import React from 'react'
 import { COLOR } from '../../constant'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Card = ({ imageUrl, productName, productPrice, productId }) => {
+
+    const navigate = useNavigate()
+
     return (
-        <Box _hover={{
+        <Box onClick={() => {
+          navigate(`/product/${productId}`)
+        }} _hover={{
           boxShadow: `7px 7px 5px #DFDFDF`,
           transition: "0.2s",
           

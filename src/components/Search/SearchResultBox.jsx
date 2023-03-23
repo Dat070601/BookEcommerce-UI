@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 const SearchResultBox = () => {
 
-  const { results } = SearchResultViewModel()
+  const { results, navigate } = SearchResultViewModel()
 
   return (
     <div>
@@ -22,8 +22,9 @@ const SearchResultBox = () => {
     >
       {results.length !== 0 ? results.map(result => {
         return (
-          <Box mt="1px" border={`1px ${COLOR} solid`} p={["20px", "20px"]}>
-            <Text          
+          <Box as={"button"} onClick={() => navigate(`/product/${result.productId}`)} w="100%" mt="1px" border={`1px ${COLOR} solid`} p={["20px", "20px"]}>
+            <Text
+              textAlign={"left"}          
             ><Link to={`/product/${result.productId}`}>{result.productName}</Link>
             </Text>
           </Box>

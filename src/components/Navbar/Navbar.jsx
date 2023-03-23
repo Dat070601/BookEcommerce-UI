@@ -32,7 +32,7 @@ const Navbar = ({ children }) => {
 				<Spacer />
 				<SearchBar />
 				<Spacer />
-				<HStack>
+				<HStack gap={"10px"}>
 					<Box position={"relative"}>
 						<Box style={{
 								zIndex: 1,

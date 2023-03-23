@@ -29,7 +29,9 @@ const ProductDetail = () => {
     visible,
     accessTokenSaved
   } = ProductDetailViewModel()
-  
+
+  console.log(variantSelected)
+
   return (
     <div className='bg'>
       {!loading ? (<Container maxW={"container.lg"}>
@@ -114,7 +116,7 @@ const ProductDetail = () => {
                 bg={COLOR} 
                 color="white" 
                 width={"100%"} 
-                isDisabled={accessTokenSaved ? false : true}
+                isDisabled={accessTokenSaved && variantSelected ? false : true}
                 leftIcon={<AiOutlineShoppingCart />}
                 onClick={() => addProductToCart({
                   productVariantId,

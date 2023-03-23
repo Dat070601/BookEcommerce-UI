@@ -18,14 +18,18 @@ const ProductDetailViewModel = () => {
   const [ productVariantId, setProductVariantId ] = useState()
   const [ quantity, setQuantity ] = useState(0)
   const [ loading, setLoading ] = useState(true)
-  const [ variantSelected, setVariantSelected ] = useState("")
+  const [ variantSelected, setVariantSelected ] = useState()
   const [ visible, setVisible ] = useState(false)
   const { get } = useLocalStorage()
-  const { isSuccess } = useSelector(cartSelector)
+  const { isSuccess } = useSelector(cartSelector) 
 
   const accessTokenSaved = get({
     key: "accessToken"
   })
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
   useEffect(() => {
     setTimeout(() => {
