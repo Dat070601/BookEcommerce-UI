@@ -1,14 +1,12 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure } from '@chakra-ui/react';
+import { useDisclosure } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import AlertLoginModal from './components/AlertLoginModal';
-import { COLOR } from './constant';
 import useLocalStorage from './hooks/useLocalStorage';
 import LoginPage from './pages/auth/login';
 import RegisterPage from './pages/auth/register';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
-import LandingPage from './pages/LandingPage';
 import NotFound from './pages/NotFound/NotFound';
 import Order from './pages/Order';
 import ProductDetail from './pages/ProductDetail';
@@ -53,7 +51,7 @@ const App = () => {
 				}}
 			/>
 			<Routes>
-				<Route index path='/' element={<LandingPage />} />
+				<Route index path='/' element={<Home />} />
 				<Route path='login' element={<LoginPage />}></Route>
 				<Route path='register' element={<RegisterPage />}></Route>
 				<Route path='home' element={<Home />}></Route>

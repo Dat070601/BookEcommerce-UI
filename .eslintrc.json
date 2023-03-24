@@ -7,8 +7,7 @@
         "eslint:recommended",
         "plugin:react/recommended",
         "prettier",
-        "react-app",
-        "plugin:react-hooks/recommended"
+        "react-app"
     ],
     "overrides": [
     ],
@@ -20,8 +19,6 @@
         "react"
     ],
     "rules": {
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
         "indent": [
             "error",
             "tab"

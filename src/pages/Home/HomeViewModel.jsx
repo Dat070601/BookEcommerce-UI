@@ -1,20 +1,23 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import useLocalStorage from '../../hooks/useLocalStorage';
-import { productSelector } from '../../stores/reducers/ProductReducer';
-import { fetchProductAsyncThunk } from '../../stores/thunks/ProductThunk';
+import { productMostSellerSelector, productSelector, productTopNewSelector } from '../../stores/reducers/ProductReducer';
+import { fetchProductAsyncThunk, fetchProductBestSellerAsyncThunk, fetchTopNewProductsAsyncThunk } from '../../stores/thunks/ProductThunk';
 
 const HomeViewModel = () => {
 	const dispatch = useDispatch()
 	const { books } = useSelector(productSelector)
+	const { booksBestSeller } = useSelector(productMostSellerSelector)
+	const { booksTopNew } = useSelector(productTopNewSelector)
 
 	useEffect(() => {
 		dispatch(fetchProductAsyncThunk(null))
+		dispatch(fetchProductBestSellerAsyncThunk(null))
+		dispatch(fetchTopNewProductsAsyncThunk(null))
 	}, [dispatch])
-
 	return {
-		books
+		books, 
+		booksBestSeller,
+		booksTopNew
 	}
 };
 

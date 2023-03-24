@@ -61,7 +61,7 @@ const ProductDetail = () => {
             <Text color={COLOR} fontWeight={"semibold"} fontSize={"25px"}>{book.productName}</Text>
             <Divider mt="10px" width={"500px"}/>
             <Box mt="10px">
-              <Text color="gray.600">Sold: 100</Text>
+              <Text color="gray.600">Sold: {book.sold}</Text>
               <HStack mt="10px" gap={"20px"}>
                 <Text fontSize={"25px"} color={"tomato"}>{productPrice} $</Text>
                 <Text decoration={"line-through"} fontSize={"23px"} color={"gray.300"}>{productDefaultPrice} $</Text>

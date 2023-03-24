@@ -1,4 +1,6 @@
 export const productState = {
   books: [],
-  book: {}
+  book: {},
+  booksBestSeller : [],
+  booksTopNew : []
 }
