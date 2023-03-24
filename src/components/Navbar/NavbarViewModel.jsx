@@ -6,17 +6,18 @@ import { authSelector } from '../../stores/reducers/AuthReducer';
 import { customerSelector } from '../../stores/reducers/CustomerReducer';
 import { getUserLoggedAsyncThunk } from '../../stores/thunks/AuthThunk';
 import { customerThunk } from '../../stores/thunks/CustomerThunk';
+import { fetchCartAsyncThunk } from '../../stores/thunks/CartThunk';
 
 const NavbarViewModel = () => {
-	const { isSuccess, email, id, accessToken } = useSelector(authSelector);
+	const { isSuccess, email, id } = useSelector(authSelector);
 	const { customerFullName, customerId } = useSelector(customerSelector);
-	const { get, set, remove } = useLocalStorage();
+	const { get, remove } = useLocalStorage();
 	const navigate = useNavigate()
 	const dispatch = useDispatch();
 	const accessTokenSaved = get({
 		key: 'accessToken'
 	});
-	
+
 	useEffect(() => {
 		dispatch(getUserLoggedAsyncThunk({
 			accessToken: accessTokenSaved
@@ -35,6 +36,13 @@ const NavbarViewModel = () => {
 		})
 		window.location.reload();
 	};
+
+	useEffect(() => {
+		dispatch(fetchCartAsyncThunk({
+			token: accessTokenSaved,
+			userId: customerId
+		}));
+	}, [dispatch, accessTokenSaved, customerId])
 
 	return {
 		isSuccess,

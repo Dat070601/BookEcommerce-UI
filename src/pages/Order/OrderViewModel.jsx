@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { redirect, useNavigate, useParams } from 'react-router-dom'
+import { getOrderByCustomerIdAsync } from '../../api/order'
+import useLocalStorage from '../../hooks/useLocalStorage'
 import { orderSelector } from '../../stores/reducers/OrderReducer'
 import { paymentSelector } from '../../stores/reducers/PaymentReducer'
-import { getOrderAsyncThunk } from '../../stores/thunks/OrderThunk'
+import { getOrderAsyncThunk, getOrderByCustomerIdAsyncThunk } from '../../stores/thunks/OrderThunk'
 import { createPaymentAsyncThunk } from '../../stores/thunks/PaymentThunk'
 
 const OrderViewModel = () => {
@@ -13,27 +15,34 @@ const OrderViewModel = () => {
   const { redirectUrl, isSuccess } = useSelector(paymentSelector)
   const navigate = useNavigate()
   const [ loading, setLoading ] = useState(true)
+  const { get } = useLocalStorage()
+  const [ reUrl, setReUrl ] = useState("")
+  const accessTokenSaved = get({
+    key: "accessToken"
+  })
 
   useEffect(() => {
     setTimeout(() => {
-      dispatch(getOrderAsyncThunk({
-        id: params.orderId
+      dispatch(getOrderByCustomerIdAsyncThunk({
+        token: accessTokenSaved
       }))
     }, 1000)
     setLoading(false)
-  }, [params.orderId, dispatch])
-
-  useEffect(() => {
-    dispatch(createPaymentAsyncThunk({
-      orderId: params.orderId
-    }))
   }, [dispatch])
 
-  const navigateToPaymentPage = () => {
-    setTimeout(() => {
-      window.location.href = redirectUrl
-    }, 1000)
+  const navigateToPaymentPage = async () => {
+    dispatch(createPaymentAsyncThunk({
+      orderId: order.orderId
+    }))
   }
+
+  useEffect(() => {
+    if (isSuccess === true)
+    {
+      location.href = redirectUrl
+    }
+
+  }, [isSuccess, navigateToPaymentPage])
 
   return {
     order,

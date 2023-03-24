@@ -8,7 +8,12 @@ const cartSlice = createSlice({
 	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(fetchCartAsyncThunk.fulfilled, (state, action) => {
-			state.carts = action.payload;
+			if (action.payload === undefined)
+			{
+				state.carts = []
+			} else {
+				state.carts = action.payload
+			}
 		});
 
 		builder.addCase(addProductToCartAsyncThunk.fulfilled, (state, action) => {
