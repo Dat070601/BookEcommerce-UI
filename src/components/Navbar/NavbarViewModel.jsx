@@ -18,6 +18,14 @@ const NavbarViewModel = () => {
 		key: 'accessToken'
 	});
 
+	const navigateToCartPage = (cartId) => {
+		if (accessTokenSaved == "") {
+			navigate("/login")
+		} else {
+			navigate(`/cart/${cartId}`)
+		}
+	}
+
 	useEffect(() => {
 		dispatch(getUserLoggedAsyncThunk({
 			accessToken: accessTokenSaved
@@ -48,10 +56,11 @@ const NavbarViewModel = () => {
 		isSuccess,
 		email,
 		id,
-		signOut,
 		customerFullName,
 		customerId,
-		accessTokenSaved
+		accessTokenSaved,
+		signOut,
+		navigateToCartPage
 	};
 };
 

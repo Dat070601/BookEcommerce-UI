@@ -10,8 +10,8 @@ import SearchBar from '../SearchBar';
 
 const Navbar = ({ children }) => {
 
-	const { isSuccess, email, signOut, customerFullName, customerId, accessTokenSaved } = NavbarViewModel();
-	const { carts } = useSelector(cartSelector)
+	const { isSuccess, email, signOut, customerFullName, customerId, accessTokenSaved, navigateToCartPage } = NavbarViewModel();
+	const { carts, cartAmmount } = useSelector(cartSelector)
 	console.log(email);
 
 	return (
@@ -41,19 +41,18 @@ const Navbar = ({ children }) => {
 								left: 0
 							}}>
 							<Circle size={"4"} bg="tomato">
-								<Text fontSize={"11px"} color={"white"}>{carts.length}</Text>
+								<Text fontSize={"11px"} color={"white"}>{cartAmmount}</Text>
 							</Circle>
 						</Box>
 						<Button 
 							rounded="30px" 
+							onClick={() => navigateToCartPage(customerId)}
 						>
-							<Link to={`/cart/${customerId}`}>
-								<Icon as={AiOutlineShoppingCart}/>
-							</Link>
+							<Icon as={AiOutlineShoppingCart}/>
 						</Button>
 					</Box>
 					{/* <Input color="" placeholder='Search...' type={"text"} rounded={"20"}/> */}
-					{isSuccess ? 
+					{ accessTokenSaved ? 
 						<>
 							<Text 
 								fontWeight={'semibold'}

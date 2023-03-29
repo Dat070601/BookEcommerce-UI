@@ -1,5 +1,5 @@
 export const OrderState = {
-  isSuccess: false,
+  isSuccessOfOrder: false,
   message: "",
   order: {},
   orderId: "",

@@ -9,6 +9,7 @@ import Cart from './pages/Cart';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound/NotFound';
 import Order from './pages/Order';
+import PaymentResult from './pages/PaymentResult';
 import ProductDetail from './pages/ProductDetail';
 import Search from './pages/Search';
 import VerifyAccount from './pages/VerifyAccount';
@@ -30,7 +31,7 @@ const App = () => {
 					key: "accessToken"
 				})
 				onOpen()
-			}, 180000)
+			}, 1800000)
 		}
 	}, [])
 
@@ -49,7 +50,7 @@ const App = () => {
 					onClose()
 					window.location.reload()
 				}}
-			/>
+			>
 			<Routes>
 				<Route index path='/' element={<Home />} />
 				<Route path='login' element={<LoginPage />}></Route>
@@ -57,11 +58,14 @@ const App = () => {
 				<Route path='home' element={<Home />}></Route>
 				<Route path='product/:id' element={<ProductDetail />}></Route>
 				<Route path='verify/:email' element={<VerifyAccount />}></Route>
+				<Route path='cart'></Route>
 				<Route path='cart/:userId' element={<Cart />}></Route>
 				<Route path='*' element={<NotFound />}></Route>
 				<Route path='/order' element={<Order />}></Route>
 				<Route path='/search/:keyword' element={<Search />}></Route>
+				<Route path='/payment-success' element={<PaymentResult />}></Route>
 			</Routes>
+			</AlertLoginModal>
 		</div>
 	);
 };

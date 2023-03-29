@@ -1,4 +1,6 @@
 export const cartState = {
 	carts: [],
-	isSuccess: false
+	isSuccessInCart: false,
+	cartAmmount: 0,
+	cartQuantityOfAllProduct: 0
 };

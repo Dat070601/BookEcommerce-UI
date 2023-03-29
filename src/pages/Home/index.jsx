@@ -18,7 +18,7 @@ const Home = () => {
 			<Box>
 				<Image src='https://res.cloudinary.com/duu07kasy/image/upload/v1679556399/Hi_Webcome_to_BookFast_o3md6l.png'/>
 			</Box>
-			<Box marginLeft={"250px"}>
+			<Box id="top_5_best_seller" marginLeft={"250px"}>
 				<Box marginLeft={"550px"} marginTop={"25px"} display={"flex"} gap={"10px"}>
 					<Text fontSize="3xl" fontWeight={"bold"} color={COLOR} > Top 5 best seller </Text>
 					<Icon as={TbCoin} color={"orange.400"} w={"40px"} h={"50px"}/>
