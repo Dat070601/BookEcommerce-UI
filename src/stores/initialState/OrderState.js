@@ -1,5 +1,7 @@
 export const OrderState = {
-  isSuccess: false,
+  isSuccessOfOrder: false,
   message: "",
-  order: {}
+  order: {},
+  orderId: "",
+  redirectUrl: ""
 }

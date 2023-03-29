@@ -1,4 +1,4 @@
-import { Box, Container, Text } from '@chakra-ui/react'
+import { Box, Container, Fade, Text } from '@chakra-ui/react'
 import React from 'react'
 import { COLOR } from '../../constant'
 import Card from '../../components/Home/Card'
@@ -14,7 +14,7 @@ const Search = () => {
       <Box mt="20px">
         <Text color={COLOR} fontWeight={"medium"}>Search result: <Text color={"black"}>{results.length} results</Text></Text>
       </Box>
-      {results.length !== 0 ? <Box mb="100px" display={"flex"} flexWrap="wrap" gap={"10px"}>
+      {results.length !== 0 ? <Fade in={true}><Box mb="100px" display={"flex"} flexWrap="wrap" gap={"10px"}>
         {results.map(book => {
           return (
             <Card 
@@ -25,7 +25,7 @@ const Search = () => {
             />
           )
         })}
-      </Box> : <Box display={"flex"} justifyContent={"center"} alignItems={"center"} pt="250px">
+      </Box></Fade> : <Box display={"flex"} justifyContent={"center"} alignItems={"center"} pt="250px">
         <Text fontWeight={"light"} color={COLOR} fontSize={"45px"}>No result found...</Text>
       </Box> }
     </Container>

@@ -18,4 +18,21 @@ const getProductById = async (url, id) => {
   }
 }
 
-export { fetchProductAsync, getProductById }
+const fetchMostProductBestSellerAsync = async (url) => {
+  try {
+    const response = await axios.get(`${url}/api/product/product-most-seller`)
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const fetchTopNewProductsAsync = async (url) => {
+  try {
+    const response = await axios.get(`${url}/api/product/product-top-new`)
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+export { fetchProductAsync, getProductById, fetchMostProductBestSellerAsync, fetchTopNewProductsAsync }

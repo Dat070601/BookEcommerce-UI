@@ -32,7 +32,24 @@ const addProductToCartAsync = async (url, token, { productVariantId, quantity })
 	}
 }
 
+const deleteProductInCartAsync = async (url, { token, data }) => {
+	try {
+		const response = await axios({
+			url: `${url}/api/cart`,
+			headers: {
+				"Authorization": `bearer ${token}`
+			},
+			data,
+			method: "DELETE"
+		})
+		return response.data
+	} catch (error) {
+		console.log(error)
+	}
+}
+
 export {
 	fetchCartAsync,
-	addProductToCartAsync
+	addProductToCartAsync,
+	deleteProductInCartAsync
 };

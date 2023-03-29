@@ -1,6 +1,6 @@
 import { OrderState } from "../initialState/orderState";
 import { createSlice } from "@reduxjs/toolkit";
-import { addOrderAsyncThunk, getOrderAsyncThunk } from "../thunks/OrderThunk";
+import { addOrderAsyncThunk, changeStatusOfOrderAsyncThunk, getOrderAsyncThunk, getOrderByCustomerIdAsyncThunk } from "../thunks/OrderThunk";
 
 const orderSlice = createSlice({
   name: "order",
@@ -8,12 +8,25 @@ const orderSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(addOrderAsyncThunk.fulfilled, (state, action) => {
-      state.isSuccess = action.payload.isSuccess,
+      state.isSuccessOfOrder = action.payload.isSuccess,
       state.message = action.payload.message
     })
 
     builder.addCase(getOrderAsyncThunk.fulfilled, (state, action) => {
+      if (!state.order)
+      {
+        state.order = []
+      }
       state.order = action.payload
+    })
+
+    builder.addCase(getOrderByCustomerIdAsyncThunk.fulfilled, (state, action) => {
+      state.order = action.payload
+    })
+
+    builder.addCase(changeStatusOfOrderAsyncThunk.fulfilled, (state, action) => {
+      state.isSuccessOfOrder = action.payload.isSuccess
+      state.message = action.payload.message
     })
   }
 })

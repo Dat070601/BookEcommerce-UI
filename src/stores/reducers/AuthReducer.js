@@ -8,16 +8,18 @@ const AuthSlice = createSlice({
 	reducers: {}, 
 	extraReducers: (builder) => {
 		builder.addCase(loginAsyncThunk.fulfilled, (state, action) => {
-			if (action.payload.isSuccess === false)
+			if (action.payload.isSuccess == false)
 			{
 				state.isSuccess = action.payload.isSuccess;
 				state.message = 'Failed to login, please try again';
 			}
-			state.isSuccess = action.payload.isSuccess;
-			state.isActive = action.payload.isActive;
-			state.message = 'Welcome back';
-			state.accessToken = action.payload.accessToken;
-			state.refreshToken = action.payload.refreshToken;
+			else {
+				state.isSuccess = action.payload.isSuccess;
+				state.isActive = action.payload.isActive;
+				state.message = 'Welcome back';
+				state.accessToken = action.payload.accessToken;
+				state.refreshToken = action.payload.refreshToken;
+			}
 		});
 
 		builder.addCase(registerAsyncThunk.fulfilled, (state, action) => {

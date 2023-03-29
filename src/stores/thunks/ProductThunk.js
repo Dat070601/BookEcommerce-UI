@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { fetchProductAsync, getProductById } from "../../api/product";
+import { fetchProductAsync, getProductById, fetchMostProductBestSellerAsync, fetchTopNewProductsAsync } from "../../api/product";
 import { URL } from "../../constant";
 
 const fetchProductAsyncThunk = createAsyncThunk("product/fetch-product", async (payload) => {
@@ -21,4 +21,22 @@ const getProductByIdAsyncThunk = createAsyncThunk("product/get-product-id", asyn
   }
 })
 
-export { fetchProductAsyncThunk, getProductByIdAsyncThunk }
+const fetchProductBestSellerAsyncThunk = createAsyncThunk("product/fetch-product-best-seller", async (payload) => {
+  try {
+    const response = await fetchMostProductBestSellerAsync(URL)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+const fetchTopNewProductsAsyncThunk = createAsyncThunk("product/fetch-top-new-product", async (payload) => {
+  try {
+    const response = await fetchTopNewProductsAsync(URL)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+})
+
+export { fetchProductAsyncThunk, getProductByIdAsyncThunk, fetchProductBestSellerAsyncThunk, fetchTopNewProductsAsyncThunk }

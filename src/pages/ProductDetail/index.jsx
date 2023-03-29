@@ -1,4 +1,4 @@
-import { Input, Button, Icon, Box, Breadcrumb, BreadcrumbItem, Text, Container, Flex, Image, Divider, HStack, Spinner, VStack, Alert, AlertIcon, AlertTitle, FormHelperText } from '@chakra-ui/react'
+import { Input, Button, Icon, Box, Breadcrumb, BreadcrumbItem, Text, Container, Flex, Image, Divider, HStack, Spinner, VStack, Alert, AlertIcon, AlertTitle, FormHelperText, Fade } from '@chakra-ui/react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import { AiOutlineMinus } from 'react-icons/ai'
 import React, { useEffect, useState } from 'react'
@@ -27,12 +27,21 @@ const ProductDetail = () => {
     variantSelected,
     handleVariantSelected,
     visible,
-    accessTokenSaved
+    accessTokenSaved,
+    handleBuyNow,
+    loadingBuyProduct,
+    message
   } = ProductDetailViewModel()
-  
+
+  console.log(variantSelected)
+
   return (
     <div className='bg'>
-      {!loading ? (<Container maxW={"container.lg"}>
+      { visible ? (<Alert mt="20px">
+        <AlertIcon />
+        <AlertTitle>{message}</AlertTitle>
+      </Alert>) : <></>}
+      {!loading ? (<Fade in={!loading}><Container maxW={"container.lg"}>
         <Breadcrumb pt="10px">
           <BreadcrumbItem>
             <Text fontWeight={"semibold"} color={COLOR}>
@@ -59,7 +68,7 @@ const ProductDetail = () => {
             <Text color={COLOR} fontWeight={"semibold"} fontSize={"25px"}>{book.productName}</Text>
             <Divider mt="10px" width={"500px"}/>
             <Box mt="10px">
-              <Text color="gray.600">Sold: 100</Text>
+              <Text color="gray.600">Sold: {book.sold}</Text>
               <HStack mt="10px" gap={"20px"}>
                 <Text fontSize={"25px"} color={"tomato"}>{productPrice} $</Text>
                 <Text decoration={"line-through"} fontSize={"23px"} color={"gray.300"}>{productDefaultPrice} $</Text>
@@ -91,7 +100,8 @@ const ProductDetail = () => {
             {book.productVariants?.map(variant => {
               return (
                 <Button 
-                  color={COLOR}
+                  color={variant.productVariantName === variantSelected ? "white" : COLOR}
+                  bg={variant.productVariantName === variantSelected ? COLOR : ""}
                   variant={"outline"}
                   onClick={() => {
                     handleVariantSelected(variant.productVariantName)
@@ -106,7 +116,6 @@ const ProductDetail = () => {
                 </Button>
               )
             })}
-            <Text>product: {variantSelected}</Text>
             </HStack>
             <Divider mt="10px" width={"500px"}/>
             <VStack mt="30px" gap="10px">
@@ -114,33 +123,41 @@ const ProductDetail = () => {
                 bg={COLOR} 
                 color="white" 
                 width={"100%"} 
-                isDisabled={accessTokenSaved ? false : true}
+                isDisabled={accessTokenSaved && variantSelected ? false : true}
                 leftIcon={<AiOutlineShoppingCart />}
-                onClick={() => addProductToCart({
-                  productVariantId,
-                  quantity
-                })}
+                onClick={() => {
+                  addProductToCart({
+                    productVariantId,
+                    quantity
+                  })
+                }}
               >
                 Add to cart
               </Button>
               <Button 
+                loadingText={"Buy now..."}
+                isLoading={loadingBuyProduct}
                 color={COLOR} 
                 width={"100%"} 
                 variant="outline" 
                 leftIcon={<MdOutlinePayments />}
+                onClick={() => {
+                  handleBuyNow({
+                    details: [...[], {
+                      productVariantId,
+                      quantity
+                    }]
+                  })
+                }}
               >
                 Buy now
               </Button>
             </VStack>
           </Box>
         </Flex>
-      </Container>) : (
+      </Container></Fade>) : (
         <Loading />
       )}
-      { visible ? (<Alert mt="20px">
-        <AlertIcon />
-        <AlertTitle>Add to cart successfully</AlertTitle>
-      </Alert>) : <></>}
     </div>
   )
 }

@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import { searchSelector } from "../../stores/reducers/SearchReducer"
 import { searchByNameAsyncThunk } from "../../stores/thunks/SearchThunk"
 
 const SearchResultViewModel = () => {
   const params = useParams()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [ input, setInput ] = useState({
-    search: "" || params.keyword
+    search: ""
   })
   const [ visible, setVisible ] = useState(false)
   const { results } = useSelector(searchSelector)
@@ -19,12 +20,14 @@ const SearchResultViewModel = () => {
       [event.target.name]: event.target.value
     })
   }
- 
+
   useEffect(() => {
     if (input.search !== "")
     {
       setVisible(true)
-    } else {
+    }
+    else
+    {
       setVisible(false)
     }
   }, [input.search])
@@ -33,11 +36,11 @@ const SearchResultViewModel = () => {
     window.addEventListener("click", () => {
       setVisible(false)
     })
-  }, visible)
+  }, [visible])
 
   useEffect(() => {
     dispatch(searchByNameAsyncThunk({
-      name: input.search,
+      name: input.search || params.keyword,
       type: "product"
     }))
   }, [input.search])
@@ -46,7 +49,8 @@ const SearchResultViewModel = () => {
     visible,
     results,
     input,
-    handleInput
+    handleInput,
+    navigate
   }
 }
 

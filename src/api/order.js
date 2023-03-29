@@ -25,8 +25,33 @@ const getOrderAsyncById = async (url, { id }) => {
   }
 }
 
-export { 
-  addOrderAsync,
-  getOrderAsyncById
+const getOrderByCustomerIdAsync = async (url, token) => {
+  try {
+    const response = await axios.get(`${url}/order-from-customer`, {
+      headers: {
+        Authorization: `bearer ${token}`
+      }
+    })
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
 }
 
+const changeStatusOfOrderAsync = async (url, { orderId, statusOrder }) => {
+  try {
+    const response = await axios.put(`${url}/api/order/${orderId}`, {
+      statusOrder
+    })
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export { 
+  addOrderAsync,
+  getOrderAsyncById,
+  getOrderByCustomerIdAsync,
+  changeStatusOfOrderAsync
+}
