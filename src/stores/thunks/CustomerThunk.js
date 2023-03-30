@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchCustomerProfileAsync } from '../../api/profile';
+import { createCustomerProfileAsync, fetchCustomerProfileAsync } from '../../api/profile';
 import { URL } from '../../constant';
 
 const customerThunk = createAsyncThunk('customer/get-profile', async (payload) => {
@@ -13,4 +13,19 @@ const customerThunk = createAsyncThunk('customer/get-profile', async (payload) =
 	}
 });
 
-export { customerThunk };
+const createCustomerProfileAsyncThunk = createAsyncThunk('customer/create-customer-profile', async (payload) => {
+	try {
+		const response = await createCustomerProfileAsync(
+			URL,
+			payload.token, 
+			{
+				fullName: payload.fullName,
+			}
+		)
+		return response
+	} catch (error) {
+		console.log(error)
+	}
+})
+
+export { customerThunk, createCustomerProfileAsyncThunk };

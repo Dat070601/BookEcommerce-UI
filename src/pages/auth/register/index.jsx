@@ -3,19 +3,32 @@ import RegisterViewModel from './RegisterViewModel';
 import style from './Register.module.css';
 import { Heading } from '@chakra-ui/react';
 import { COLOR } from '../../../constant';
+import { useState } from 'react';
 
 const RegisterPage = () => {
-	const { isSuccess, message, registerAsync } = RegisterViewModel();
-	const username = useRef();
-	const email = useRef();
-	const password = useRef();
+	const [ input, setInput ] = useState({
+		username: "",
+		email: "",
+		password: ""
+	})
+
+	const { isSuccess, message, registerAsync } = RegisterViewModel({
+		email: input.email
+	});
+
+	const handleInputChange = (event) => {
+		setInput({
+			...input,
+			[event.target.name]: event.target.value
+		})
+	}
 
 	const handleSubmitRegisterForm = (event) => {
 		event.preventDefault();
 		registerAsync({
-			username: username.current?.value,
-			email: email.current?.value, 
-			password: password.current?.value
+			username: input.username,
+			email: input.email, 
+			password: input.password
 		});
 	};
 
@@ -25,9 +38,9 @@ const RegisterPage = () => {
 				<Heading mb = "20px" color={COLOR}>
             Register
 				</Heading>
-				<input ref={username} type="text" placeholder="Username" name="username" required />
-				<input ref={email} type="email" placeholder="Email" name="email"   required />
-				<input ref={password} type="password" placeholder="********" name="password"  required />
+				<input type="text" placeholder="Username" name="username" onChange={handleInputChange} required />
+				<input type="email" placeholder="Email" name="email" onChange={handleInputChange} required />
+				<input type="password" placeholder="********" name="password" onChange={handleInputChange} required />
 				<p>{message}</p>
 				<button type="submit">Register</button>
 			</form>

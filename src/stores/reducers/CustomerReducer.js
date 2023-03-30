@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { customerThunk } from '../thunks/CustomerThunk';
+import { createCustomerProfileAsyncThunk, customerThunk } from '../thunks/CustomerThunk';
 import { CustomerState } from '../initialState/CustomerState';
 
 const customerSlice = createSlice({
@@ -20,6 +20,11 @@ const customerSlice = createSlice({
 			state.customerFullName = action.payload.customerFullName;
 			state.customerId = action.payload.customerId;
 		});
+
+		builder.addCase(createCustomerProfileAsyncThunk.fulfilled, (state, action) => {
+			state.isSuccess = action.payload.isSuccess,
+			state.message = action.payload.message
+		})
 	}
 });
 

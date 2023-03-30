@@ -13,4 +13,23 @@ const fetchCustomerProfileAsync = async (url, { token }) => {
 	}
 };
 
-export { fetchCustomerProfileAsync };
+const createCustomerProfileAsync = async (url, token, { fullName, phoneNumber }) => {
+	try {
+		const response = await axios({
+			url: `${url}/create/customer`,
+			headers: {
+				Authorization: `bearer ${token}`
+			},
+			method: "POST",
+			data: {
+				fullName,
+				phoneNumber
+			}
+		})
+		return response.data
+	} catch (error) {
+		console.log(error)
+	}
+}
+
+export { fetchCustomerProfileAsync, createCustomerProfileAsync };

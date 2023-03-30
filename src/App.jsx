@@ -6,6 +6,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 import LoginPage from './pages/auth/login';
 import RegisterPage from './pages/auth/register';
 import Cart from './pages/Cart';
+import CreateProfile from './pages/CreateProfile';
 import Home from './pages/Home';
 import NotFound from './pages/NotFound/NotFound';
 import Order from './pages/Order';
@@ -60,6 +61,7 @@ const App = () => {
 				<Route path='verify/:email' element={<VerifyAccount />}></Route>
 				<Route path='cart'></Route>
 				<Route path='cart/:userId' element={<Cart />}></Route>
+				<Route path='create-profile' element={<CreateProfile />}></Route>
 				<Route path='*' element={<NotFound />}></Route>
 				<Route path='/order' element={<Order />}></Route>
 				<Route path='/search/:keyword' element={<Search />}></Route>

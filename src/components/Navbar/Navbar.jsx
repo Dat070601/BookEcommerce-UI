@@ -61,7 +61,7 @@ const Navbar = ({ children }) => {
 									color: 'blue.400',
 								}}
 							>
-								{customerFullName}
+								{customerFullName ? customerFullName : <Link to="/create-profile">Create your profile</Link>}
 							</Text>
 							<Button 
 								colorScheme={'red'}
